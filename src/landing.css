@@ -1,0 +1,75 @@
+.italiana-regular {
+    font-family: "Italiana", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.inter {
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+}
+
+.appName{
+    font-family: "Italiana";
+    font-size: 2.5em;
+}
+
+.body{
+    height: 100vh;
+}
+
+.bgImage {
+    margin: 10px 30px 10px 30px; /* Adjust margins as needed */
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.3)), url("./assets/bg.png");
+    background-size: cover; /* Cover the entire background */
+    background-position: center; /* Center the background image */
+    height: 85vh;
+    width: 96vw;
+    border-radius: 50px;
+  }
+  
+  .some{
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .inText{
+    color: white;
+    font-family: "Inter", sans-serif;
+    font-weight: bold;
+    font-size: 4em;
+    margin-top: 80px;
+    margin-right: 120px;
+  }
+  .smallText{
+    color: white;
+    font-family: "Inter", sans-serif;
+  }
+
+  .inps{
+    margin-left: 80px;
+    margin-top:120px;
+    width: 600px;
+  }
+
+  .card-container{
+    display: flex;
+    justify-content: space-around;
+    margin: 10px 30px 50px 30px;
+    background-color: rgba(0, 0, 0, 0.9);
+    padding: 60px 20px 60px 20px;
+    border-radius: 60px;
+  }
+
+  .features{
+    font-family: "Inter", sans-serif;
+    font-size: 3em;
+    margin: 50px 30px 50px 50px;
+  }
+
+  .testimonials{
+    font-family: "Inter", sans-serif;
+    font-size: 3em;
+    margin: 50px 30px 50px 50px;
+  }

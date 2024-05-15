@@ -1,0 +1,23 @@
+.flexx{
+    display: flex;
+}
+
+.searchBar{
+    display: flex;
+    justify-content: space-between;
+    width:70%;
+    padding-left: 30px;
+    background-color: #000;
+    width: 100%;
+    padding: 15px 15px 15px 15px;
+    border-radius: 50px;
+    margin-bottom: 20px;
+}
+
+.inp{
+    margin-right: 20px;
+}
+
+.cad{
+    margin-bottom: 10px;
+}
