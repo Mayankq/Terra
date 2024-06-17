@@ -14,30 +14,7 @@ import logo from './assets/trsutlogo.png';
 import { LocationMarkerIcon, CurrencyDollarIcon, LightningBoltIcon, DocumentTextIcon, CheckIcon } from '@heroicons/react/outline'; // Import Tailwind UI icons
 
 import Web3 from 'web3';
-import MyContract from './build/contracts/MyContract.json';
 
-const web3 = new Web3(Web3.givenProvider || "http://localhost:7545");
-
-const networkId = await web3.eth.net.getId();
-const deployedNetwork = MyContract.networks[networkId];
-const instance = new web3.eth.Contract(
-  MyContract.abi,
-  deployedNetwork && deployedNetwork.address,
-);
-
-// Now you can interact with your contract instance
-
-// Example function to call the increment function of the contract
-async function incrementCount() {
-    const accounts = await web3.eth.getAccounts();
-    await instance.methods.increment().send({ from: accounts[0] });
-  }
-  
-  // Example function to get the count value
-  async function getCount() {
-    const count = await instance.methods.count().call();
-    alert(count);
-  }
   
 
 
@@ -132,9 +109,9 @@ const Landdesc = () => {
                     </div>
                     <br></br><br></br>
                     <div className="flex">
-                        <Button size="lg" color="primary" onClick={incrementCount}>Buy</Button>
+                        <Button size="lg" color="primary">Buy</Button>
                         &#0160;&#0160;&#0160;
-                        <Button size="lg" color="warning" onClick={getCount}>Buy Tokens</Button>
+                        <Button size="lg" color="warning">Buy Tokens</Button>
                         &#0160;&#0160;&#0160;
                         <Button size="lg" color="secondary">Sell</Button>
                         &#0160;&#0160;&#0160;
