@@ -29,7 +29,7 @@ const Footer = () => {
             <Link
               isExternal
               showAnchorIcon
-              href="https://github.com/nextui-org/nextui"
+              href="https://github.com/Mayankq/Terratrust"
             >
               Visit source code on GitHub.
             </Link>

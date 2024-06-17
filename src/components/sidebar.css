@@ -1,52 +1,25 @@
 .link {
-    color: #000; /* This will set the text color to black for all links */
-  }
-  
-  .active {
-    background-color: #000; /* Replace with the color code for the active state */
-    border-radius: 10px; /* Adjust the border-radius as needed */
-    padding: 8px 10px 8px 10px; /* Adjust padding as needed */
-    color: #fff; /* This will set the text color to white for the active link */
-    min-width: 250px;
-  }
-  
-  .icon {
-    margin-right: 8px; /* Adjust the spacing as needed */
-  }
+  color: #000; /* This will set the text color to black for all links */
+}
 
-  /* Styles for the hamburger icon */
-.hamburger-icon {
-    cursor: pointer;
-    font-size: 24px; /* Adjust icon size as needed */
-    padding: 10px; /* Add some padding for easier click */
-    display: block; /* Ensure it's a block element to occupy full width */
-    margin-bottom: 20px; /* Space between icon and the first link */
-  }
-  
-  /* Styles when the sidebar is collapsed */
-  .collapsed .icon {
-    margin-right: 0; /* Remove margin when collapsed */
-  }
-  
-  .collapsed .link {
-    justify-content: center; /* Center the icon in the link */
-    font-size: 0; /* Hide the text */
-    padding: 10px 0; /* Adjust padding to center icons vertically */
-  }
-  
-  /* Active link styles */
-  .active {
-    color: #007bff; /* Active link color, change as needed */
-    background-color: #f0f0f0; /* Active link background, change as needed */
-  }
-  
-  /* General link styles */
-  .link {
-    transition: all 0.3s ease; /* Smooth transition for collapsing and expanding */
-  }
-  
-  /* Adjustments for when the sidebar is not collapsed */
-  .link:not(.collapsed) {
-    padding-left: 20px; /* Align text properly when expanded */
-  }
-  
+.active {
+  background-color: #000; /* Replace with the color code for the active state */
+  border-radius: 10px; /* Adjust the border-radius as needed */
+  padding: 8px 10px 8px 10px; /* Adjust padding as needed */
+  color: #fff; /* This will set the text color to white for the active link */
+  min-width: 250px;
+}
+
+.icon {
+  margin-right: 8px; /* Adjust the spacing as needed */
+}
+
+/* General link styles */
+.link {
+  transition: all 0.3s ease; /* Smooth transition for state changes */
+}
+
+/* Ensure the sidebar spans the full height of the screen */
+.sticky {
+  height: 100vh;
+}

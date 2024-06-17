@@ -9,7 +9,7 @@
 }
 .image-container {
     flex: 1;
-    max-width: 40%;
+    max-width: 35%;
 }
 
 .container{
@@ -23,4 +23,8 @@
   width:50%;
   height: 50%;
 
+}
+.appName {
+  font-family: "Italiana";
+  font-size: 2.5em;
 }

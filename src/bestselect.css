@@ -1,0 +1,87 @@
+.featured-image {
+    width: 700px; /* Adjust as needed */
+    height: 100px; /* Adjust as needed */
+    object-fit: cover; /* Adjust this to control how the image is resized */
+  }
+
+  .flexx{
+    display: flex;
+}
+
+.searchBar{
+    display: flex;
+    justify-content: space-between;
+    width:70%;
+    padding-left: 30px;
+    background-color: #000;
+    width: 100%;
+    padding: 15px 15px 15px 15px;
+    border-radius: 50px;
+    margin-bottom: 20px;
+}
+
+.inp{
+    margin-right: 20px;
+}
+
+.cad{
+    margin-bottom: 10px;
+}
+
+.imgs{
+    width:740px;
+    height: 400px;
+}
+
+.featuredrow1{
+    display: flex;
+    justify-content: space-between;
+}
+
+.imgs2{
+    width: 400px;
+    height: 400px;
+}
+
+.featuredrow2{
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.imgs3{
+    width: 560px;
+    height: 200px;
+}
+.imgs4{
+    width: 580px;
+    height: 200px;
+}
+.imgs5{
+    width: 580px;
+    height: 200px;
+}
+.imgs6{
+    width: 560px;
+    height: 200px;
+}
+
+.featuredrow3{
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.imgs7{
+    width: 300px;
+    height: 400px;
+}
+.imgs8{
+    width: 840px;
+    height: 200px;
+}
+
+.imgs9{
+    width: 840px;
+    height: 200px;
+}

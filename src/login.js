@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Input, Button } from "@nextui-org/react";
-import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Link } from "@nextui-org/react";
+import { Navbar, NavbarBrand, NavbarContent, NavbarItem } from "@nextui-org/react";
+import { Link } from 'react-router-dom';
 import { Image } from "@nextui-org/react";
 import './login.css';
 import logo from './assets/trsutlogo.png';
@@ -13,9 +14,7 @@ import Ne from './components/ne';
 function Login() {
   const [aadharNumber, setAadharNumber] = useState('');
   const [password, setPassword] = useState('');
-  const [otp, setOtp] = useState('');
-  const [authenticated, setAuthenticated] = useState(false);
-  const [showOtpInput, setShowOtpInput] = useState(false);
+  const [authenticated, setAuthenticated] = useState(localStorage.getItem('authenticated') === 'true');
 
   const handleAadharChange = (e) => {
     setAadharNumber(e.target.value);
@@ -25,27 +24,28 @@ function Login() {
     setPassword(e.target.value);
   };
 
-  const handleOtpChange = (e) => {
-    setOtp(e.target.value);
-  };
+  const handleLogin = async () => {
+    const response = await fetch('http://localhost:3001/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ aadhar: aadharNumber, password }),
+    });
 
-  const handleGetOTP = () => {
-    // Check Aadhar number and password
-    if (aadharNumber === '123456789012' && password === 'abc123') {
-      // Show OTP input field
-      setShowOtpInput(true);
+    if (response.ok) {
+      const data = await response.json();
+      if (data.authenticated) {
+        localStorage.setItem('authenticated', 'true'); // Save authentication state
+        localStorage.setItem('user', JSON.stringify(data.user)); // Save user data
+        const userFromLocalStorage = JSON.parse(localStorage.getItem('user')); // Retrieve user data from local storage
+    console.log(userFromLocalStorage); // Log the user data from local storage
+        setAuthenticated(true);
+      } else {
+        alert('Invalid Aadhar number or password');
+      }
     } else {
-      alert('Invalid Aadhar number or password');
-    }
-  };
-
-  const handleLogin = () => {
-    // Check OTP
-    if (showOtpInput && otp === '999999') {
-      // OTP is correct, authenticate the user
-      setAuthenticated(true);
-    } else {
-      alert('Invalid OTP');
+      console.error('Failed to authenticate');
     }
   };
 
@@ -53,13 +53,14 @@ function Login() {
     return <Navigate to="/dashboard" />;
   }
 
-
   return (
     <div>
       <Navbar maxWidth={'full'}>
         <NavbarBrand>
           <img src={logo} width="80px" alt="TerraTrust Logo" />
-          <p className="appName">TerraTrust</p>
+          <Link className="appName" to="/">
+      TerraTrust
+    </Link>
         </NavbarBrand>
         <NavbarContent justify="center">
           <NavbarItem>
@@ -80,17 +81,18 @@ function Login() {
         </NavbarContent>
         <NavbarContent justify="end">
           <NavbarItem>
-            <Link href='./signup'>SignUp</Link>
+            <Link to='/signup'>SignUp</Link>
           </NavbarItem>
           <NavbarItem>
-          <Button href="#" variant="flat">
-                <TwitterLogo/>
-                <Linkedin/>
-                <Ne/>
+            <Button href="#" variant="flat">
+              <TwitterLogo/>
+              <Linkedin/>
+              <Ne/>
             </Button>
           </NavbarItem>
         </NavbarContent>
       </Navbar>
+      <hr></hr>
       <div className="container">
         <div className="form-container">
           <h2 className="login" style={{ fontSize: '1.8em' }}>GET STARTED NOW</h2>
@@ -98,22 +100,13 @@ function Login() {
           <h3 className="login1" style={{ fontSize: '1.8em' }}>Login</h3>
           <br></br>
           <div className="input"></div>
-          <div>
+          <div style={{width:"80%"}}>
             <Input type="aadhar" label="Aadhar Number" radius='full' value={aadharNumber} onChange={handleAadharChange} />
             <br></br>
             <Input type="password" label="Password" radius='full' value={password} onChange={handlePasswordChange} />
             <br></br>
-            {aadharNumber === '123456789012' && password === 'abc123' && (
-              <>
-                <Input type="otp" label="OTP" radius='full' value={otp} onChange={handleOtpChange} />
-                <br></br>
-              </>
-            )}
             <br></br>
             <div className="button">
-                <Button color="black" variant="bordered" onClick={handleGetOTP}>
-                  Get OTP
-                </Button>
               <Button color="black" variant="bordered" onClick={handleLogin}>
                 Login
               </Button>

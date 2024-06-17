@@ -9,8 +9,10 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "axios": "^1.7.2",
     "chart.js": "^4.4.2",
     "framer-motion": "^11.1.9",
+    "fs": "^0.0.1-security",
     "react": "^18.3.1",
     "react-apexcharts": "^1.4.1",
     "react-chartjs-2": "^5.2.0",
@@ -19,8 +21,10 @@
     "react-router-dom": "^6.23.1",
     "react-scripts": "5.0.1",
     "rsuite": "^5.60.2",
+    "solc": "^0.8.26",
     "vuesax": "^4.0.1-alpha.25",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "web3": "^4.9.0"
   },
   "scripts": {
     "start": "react-scripts start",

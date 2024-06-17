@@ -7,6 +7,8 @@ import Dashboard from "./dashboard";
 import Search from "./Search";
 import Terms from "./terms";
 import Profile from "./profile";
+import Best from "./Bestselects";
+import Landdesc from "./Landdesc";
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
       <Route path="/search" element={<Search/>}/>
       <Route path="/terms" element={<Terms/>}/>
       <Route path="/profile" element={<Profile/>}/>
+      <Route path="/Bestselect" element={<Best/>}/>
+      <Route path="/land/:id" element={<Landdesc />} />
     </Routes>
   );
 }

@@ -1,75 +1,187 @@
+/* landing.css */
+
 .italiana-regular {
-    font-family: "Italiana", sans-serif;
-    font-weight: 400;
-    font-style: normal;
+  font-family: "Italiana", sans-serif;
+  font-weight: 400;
+  font-style: normal;
 }
 
 .inter {
-    font-family: "Inter", sans-serif;
-    font-optical-sizing: auto;
-    font-style: normal;
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
 }
 
-.appName{
-    font-family: "Italiana";
-    font-size: 2.5em;
+.appName {
+  font-family: "Italiana";
+  font-size: 2.5em;
 }
 
-.body{
-    height: 100vh;
+.body {
+  height: 100vh;
 }
 
 .bgImage {
-    margin: 10px 30px 10px 30px; /* Adjust margins as needed */
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.3)), url("./assets/bg.png");
-    background-size: cover; /* Cover the entire background */
-    background-position: center; /* Center the background image */
-    height: 85vh;
-    width: 96vw;
-    border-radius: 50px;
-  }
-  
-  .some{
-    display: flex;
-    justify-content: space-between;
+  margin: 10px 30px 10px 30px; /* Adjust margins as needed */
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.3)), url("./assets/bg.png");
+  background-size: cover; /* Cover the entire background */
+  background-position: center; /* Center the background image */
+  height: 85vh;
+  width: 96vw;
+  border-radius: 50px;
+}
+
+.some {
+  display: flex;
+  justify-content: space-between;
+}
+
+.inText {
+  color: white;
+  font-family: "Inter", sans-serif;
+  font-weight: bold;
+  font-size: 4em;
+  margin-top: 80px;
+  margin-right: 120px;
+}
+
+.smallText {
+  color: white;
+  font-family: "Inter", sans-serif;
+}
+
+.inps {
+  margin-left: 80px;
+  margin-top: 120px;
+  width: 600px;
+}
+
+.card-container {
+  display: flex;
+  justify-content: space-around;
+  margin: 10px 30px 50px 30px;
+  background-color: rgba(0, 0, 0, 0.9);
+  padding: 60px 20px 60px 20px;
+  border-radius: 60px;
+}
+
+.features {
+  font-family: "Inter", sans-serif;
+  font-size: 3em;
+  margin: 50px 30px 50px 50px;
+}
+
+.testimonials {
+  font-family: "Inter", sans-serif;
+  font-size: 3em;
+  margin: 50px 30px 50px 50px;
+}
+
+/* Mobile navigation styles */
+.hamburger {
+  display: none;
+  font-size: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.mobile-nav {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--nextui-colors-background);
+  position: absolute;
+  width: 100%;
+  top: 60px; /* Adjust based on the navbar height */
+  left: 0;
+  z-index: 1000;
+}
+
+.mobile-nav a,
+.mobile-nav button {
+  margin: 10px 0;
+}
+
+@media (max-width: 768px) {
+  .nav-links {
+      display: none;
   }
 
-  .inText{
-    color: white;
-    font-family: "Inter", sans-serif;
-    font-weight: bold;
-    font-size: 4em;
-    margin-top: 80px;
-    margin-right: 120px;
-  }
-  .smallText{
-    color: white;
-    font-family: "Inter", sans-serif;
+  .hamburger {
+      display: block;
   }
 
-  .inps{
-    margin-left: 80px;
-    margin-top:120px;
-    width: 600px;
+  .mobile-nav {
+      display: flex;
+  }
+}
+
+/* Tablet size adjustments */
+@media (max-width: 1024px) {
+  .inText {
+      font-size: 3em;
+      margin-top: 60px;
+      margin-right: 60px;
   }
 
-  .card-container{
-    display: flex;
-    justify-content: space-around;
-    margin: 10px 30px 50px 30px;
-    background-color: rgba(0, 0, 0, 0.9);
-    padding: 60px 20px 60px 20px;
-    border-radius: 60px;
+  .inps {
+      margin-left: 40px;
+      margin-top: 80px;
+      width: 400px;
   }
 
-  .features{
-    font-family: "Inter", sans-serif;
-    font-size: 3em;
-    margin: 50px 30px 50px 50px;
+  .card-container {
+      flex-direction: column;
+      align-items: center;
   }
 
-  .testimonials{
-    font-family: "Inter", sans-serif;
-    font-size: 3em;
-    margin: 50px 30px 50px 50px;
+  .features,
+  .testimonials {
+      font-size: 2em;
+      margin: 30px 20px 30px 20px;
   }
+}
+
+/* Mobile size adjustments */
+@media (max-width: 600px) {
+  .some {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+  }
+
+  .inText {
+      font-size: 2em;
+      margin-top: 40px;
+      margin-right: 0;
+  }
+
+  .smallText {
+      font-size: 1em;
+  }
+
+  .inps {
+      margin-left: 20px;
+      margin-top: 40px;
+      width: 80%;
+  }
+
+  .card-container {
+      flex-direction: column;
+      align-items: center;
+  }
+
+  .features,
+  .testimonials {
+      font-size: 1.5em;
+      margin: 20px 10px 20px 10px;
+  }
+
+  .bgImage {
+      margin: 10px;
+      height: auto;
+      width: auto;
+      border-radius: 20px;
+  }
+}
