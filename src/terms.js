@@ -14,6 +14,8 @@ import {indianStates} from "./data";
 import {Card, CardBody, Image, Slider} from "@nextui-org/react";
 import {Pagination} from "@nextui-org/react";
 
+const userFromLocalStorage = JSON.parse(localStorage.getItem('user'));
+
 const Terms = () => {
     const [liked, setLiked] = React.useState(false);
     return(
@@ -28,7 +30,7 @@ const Terms = () => {
             <Dropdown>
       <DropdownTrigger>
             <div className="flex gap-4 items-center">
-      <Avatar isBordered color="default" src="https://i.pravatar.cc/150?u=a042581f4e29026024d" />
+            <Avatar isBordered color="default" src={userFromLocalStorage ? userFromLocalStorage.dp : ''} />
     </div>
     </DropdownTrigger>
       <DropdownMenu aria-label="Static Actions">

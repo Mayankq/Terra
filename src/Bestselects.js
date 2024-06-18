@@ -12,6 +12,8 @@ import { Image } from "@nextui-org/react";
 import fimage from './assets/best1.png'
 import simage from './assets/best2.png'
 
+const userFromLocalStorage = JSON.parse(localStorage.getItem('user'));
+
 
 const Best = () => {
     return(
@@ -26,7 +28,7 @@ const Best = () => {
             <Dropdown>
       <DropdownTrigger>
             <div className="flex gap-4 items-center">
-      <Avatar isBordered color="default" src="https://i.pravatar.cc/150?u=a042581f4e29026024d" />
+            <Avatar isBordered color="default" src={userFromLocalStorage ? userFromLocalStorage.dp : ''} />
     </div>
     </DropdownTrigger>
       <DropdownMenu aria-label="Static Actions">

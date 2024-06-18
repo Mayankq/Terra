@@ -37,9 +37,6 @@ export default function Sidebar() {
           <a href="./terms" onClick={() => handleSetActiveLink('terms')} className={`flex items-center font-bold text-lg mb-4 link ${activeLink === 'terms' ? 'active' : ''}`}>
             <AiOutlineFileText className="icon mr-2" /> Terms and conditions
           </a>
-          <a href="./Bestselect" onClick={() => handleSetActiveLink('best')} className={`flex items-center font-bold text-lg mb-4 link ${activeLink === 'best' ? 'active' : ''}`}>
-            <FiActivity className="icon mr-2" /> Buy Tokens
-          </a>
         </CardBody>
       </Card>
     </div>

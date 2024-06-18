@@ -70,4 +70,5 @@ const landId = 1001; // Replace with a valid land ID
 const newAadharNumber = "987654321098"; // Replace with the new aadhar number
 const newContact = "9999999999"; // Replace with the new contact number
 
+
 transferOwnershipAndVerify(landId, newAadharNumber, newContact).catch(console.error);

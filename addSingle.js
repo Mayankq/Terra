@@ -10,11 +10,11 @@ async function addLand() {
     const fromAccount = accounts[0];
 
     const landInput = {
-        id: 1001,
+        id: 1006,
         details: {
-            title: "Bridge old contain.",
+            title: "Gulbarga's Land.",
             description: "Grow give federal education value. Expect will owner decision section. Thousand down sometimes speech event store within. Anyone company tell who contain rate read spring.",
-            location: "6526 Jones Pine",
+            location: "1st main road",
             zoningType: "Agricultural",
             utilities: ["Sewer"],
             images: [
@@ -27,13 +27,13 @@ async function addLand() {
             numberOfFractions: 28
         },
         owner: {
-            name: "Abhay Mishra",
-            contact: "+91-2842469441",
+            name: "Abhijeet Kumar",
+            contact: "+91-284919441",
             email: "abhaymish@gmail.com",
-            aadharNumber: "123434564567"
+            aadharNumber: "123456"
         },
-        city: "Haridwar",
-        state: "Uttarakhand"
+        city: "Gulbarga",
+        state: "Karnataka"
     };
 
     try {

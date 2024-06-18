@@ -42,23 +42,8 @@ async function fetchAndLogLands() {
     try {
         const city = "Dehradun"; // Replace with a city present in your data
         const state = "Uttarakhand"; // Replace with a state present in your data
-        const aadharNumber = "123434564567"; // Replace with an aadharNumber present in your data
+        const aadharNumber = "1234"; // Replace with an aadharNumber present in your data
         const ownerName = "Abhay Mishra"; // Replace with an ownerName present in your data
-
-        // Get lands by city
-        const landsByCity = await landRecordsContract.methods.getLandsByCity(city).call();
-        const landsByCityDetails = await Promise.all(landsByCity.map(getLandDetails));
-        console.log(`Lands in city ${city}:`, JSON.stringify(landsByCityDetails, null, 2));
-
-        // Get lands by state
-        const landsByState = await landRecordsContract.methods.getLandsByState(state).call();
-        const landsByStateDetails = await Promise.all(landsByState.map(getLandDetails));
-        console.log(`Lands in state ${state}:`, JSON.stringify(landsByStateDetails, null, 2));
-
-        // Get lands by city and state
-        const landsByCityAndState = await landRecordsContract.methods.getLandsByCityAndState(city, state).call();
-        const landsByCityAndStateDetails = await Promise.all(landsByCityAndState.map(getLandDetails));
-        console.log(`Lands in city ${city} and state ${state}:`, JSON.stringify(landsByCityAndStateDetails, null, 2));
 
         // Get lands by aadhar number
         const landsByAadhar = await landRecordsContract.methods.getLandsByAadhar(aadharNumber).call();
