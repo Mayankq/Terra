@@ -12,14 +12,20 @@ import './Landdesc.css';
 import ImageCarousel from "./components/ImageCarousel";
 import logo from './assets/trsutlogo.png';
 import { LocationMarkerIcon, CurrencyDollarIcon, LightningBoltIcon, CheckIcon } from '@heroicons/react/outline'; // Import Tailwind UI icons
+import MapEmbed from './MapEmbed';
 const { Web3 } = require('web3');
 const contract = require('./LandRecords.json'); // Adjust the path if necessary
 const { BN } = require('bn.js'); // Import the BN class for handling big numbers
 const { toBN } = require('web3-utils'); // Import the toBN function from web3-utils
 
 const web3 = new Web3('http://127.0.0.1:7545'); // Replace with your Ganache provider // Use 127.0.0.1 instead of localhost
-const contractAddress = '0xc165F89CBCC171777A7334400ED7f74C6A249590'; // Replace with the deployed contract address
+const contractAddress = '0x3c0C4463367E84dA0925E8D674006108d9AF397F'; // Replace with the deployed contract address
 const landRecordsContract = new web3.eth.Contract(contract.abi, contractAddress);
+
+const apiKey = 'YOUR_GOOGLE_MAPS_API_KEY';
+const latitude = 13.025556;
+const longitude = 77.530111;
+const zoom = 15;
 
 const userFromLocalStorage = JSON.parse(localStorage.getItem('user'));
 
@@ -34,6 +40,8 @@ const Landdesc = () => {
     const [selectedTokenCount, setSelectedTokenCount] = useState(1);
     const [showBuyTokensDiv, setShowBuyTokensDiv] = useState(false);
     const [checkedTokens, setCheckedTokens] = useState(false);
+    const [showSellDiv, setShowSellDiv] = useState(false);
+    const [sellPrice, setSellPrice] = useState('');
 
     useEffect(() => {
         fetchLandDetails(); // Fetch land details when component mounts
@@ -44,6 +52,7 @@ const Landdesc = () => {
             const land = await landRecordsContract.methods.lands(id).call();
             setLandDetails({
                 id: land.id.toString(),
+                price: land.details.price.toString(),
                 title: land.details.title,
                 description: land.details.description,
                 location: land.details.location,
@@ -127,6 +136,26 @@ const Landdesc = () => {
         }
     };
 
+    const handleSellClick = () => {
+        setShowSellDiv(true);
+    };
+
+    const handleConfirmSell = async () => {
+        const accounts = await web3.eth.getAccounts();
+        const fromAccount = accounts[0];
+        const landId = parseInt(id);
+
+        try {
+            await landRecordsContract.methods.listLandForSale(landId, sellPrice).send({
+                from: fromAccount,
+                gas: 600000
+            });
+            fetchLandDetails(); // Refresh land details after listing
+            setShowSellDiv(false); // Hide sell confirmation div after listing
+        } catch (error) {
+            console.error(`Error listing land for sale: ${error.message}`);
+        }
+    };
     const handleManageFractionalOwnership = async () => {
         try {
             const accounts = await web3.eth.getAccounts();
@@ -208,20 +237,26 @@ const Landdesc = () => {
                             <p className="flex items-center mb-2"><LightningBoltIcon className="h-5 w-5 mr-2" /> <b>Water:&#0160;</b> {landDetails.utilities?.water ? 'Available' : 'Not Available'}</p>
                             <p className="flex items-center mb-2"><LightningBoltIcon className="h-5 w-5 mr-2" /> <b>Electricity:&#0160;</b> {landDetails.utilities?.electricity ? 'Available' : 'Not Available'}</p>
                             <br /><br />
-                            <p className="flex items-center mb-2"><b>Size:&#0160;</b> {landDetails.size}</p>
                             <p className="flex items-center mb-2"><b>Zoning Type:&#0160;</b> {landDetails.zoningType}</p>
-                            <p className="flex items-center mb-2"><b>Accessibility:&#0160;</b> {landDetails.accessibility}</p>
                         </div>
                     </div>
                     <br /><br />
+                    <MapEmbed latitude={latitude} longitude={longitude} />
+                    <br></br><br></br>
                     <div className="flex">
                         {!isOwner && <Button size="lg" color="primary" onClick={handleBuyClick}>Buy</Button>}
                         &#0160;&#0160;&#0160;
                         {!isOwner && landDetails.listableForFractionalOwnership && <Button color="warning" onClick={() => setShowBuyTokensDiv(true)}>Buy Tokens</Button>}
                         &#0160;&#0160;&#0160;
-                        {isOwner && <Button size="lg" color="secondary">Sell</Button>}
-                        &#0160;&#0160;&#0160;
-                        {isOwner && <Button size="lg" color="secondary">Tokenize</Button>}
+                        {isOwner && (
+                            <Button 
+                                color="primary" 
+                                onClick={handleSellClick} 
+                                disabled={landDetails.listed}
+                            >
+                                {landDetails.listed ? 'Land Listed' : 'Sell'}
+                            </Button>
+                        )}
                     </div>
                 </div>
             </div>
@@ -301,6 +336,42 @@ const Landdesc = () => {
                     onClick={handleConfirmTokens}
                 >
                     Transfer Ownership for Tokens
+                </Button>
+            </div>
+        </div>
+    </div>
+)}
+{showSellDiv && (
+    <div className="buy-confirmation-div">
+        <div className="buy-confirmation-content">
+            <b><h1>Confirm Sale</h1></b><br/>
+            <p>Are you sure you want to sell this land?</p>
+            <br/>
+            <div className="flex" style={{justifyContent:'center', alignItems:'center'}}> 
+                <p>I have read and agree to the <a href="/terms" style={{color:'blue'}} target="_blank">terms and conditions</a>.</p>
+                <Checkbox
+                    isSelected={checked}
+                    onChange={handleCheckboxChange}
+                >
+                </Checkbox>
+            </div>
+            <br/>
+            <input 
+                type="number" 
+                value={sellPrice} 
+                onChange={(e) => setSellPrice(e.target.value)} 
+                placeholder="Enter selling price" 
+                className="form-control"
+            />
+            <div>
+            <br></br>
+                <Button color="secondary" onClick={() => setShowSellDiv(false)}>Cancel</Button>&#0160;
+                <Button
+                    color="primary"
+                    disabled={!sellPrice || !checked}
+                    onClick={handleConfirmSell}
+                >
+                    Confirm Sale
                 </Button>
             </div>
         </div>

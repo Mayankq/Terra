@@ -17,6 +17,7 @@ contract LandRecords {
         bool listed;
         bool listableForFractionalOwnership;
         uint256 numberOfFractions;
+        uint256 price; // New attribute to store the price of the land
     }
 
     struct OwnerDetails {
@@ -41,10 +42,14 @@ contract LandRecords {
     mapping(string => uint256[]) private cityToLandIds;
     mapping(string => uint256[]) private stateToLandIds;
     mapping(string => uint256[]) private ownerToLandIds;
+    mapping(string => uint256) public tokenBalances; // Mapping to store token balances for each aadharNumber
+    mapping(uint256 => uint256) public availableTokens; // Mapping to store available tokens for each landId
 
     event LandAdded(uint256 id);
     event OwnershipTransferred(uint256 landId, string newAadharNumber, string newContact);
     event FractionalOwnershipUpdated(uint256 landId);
+    event LandListedForSale(uint256 landId, uint256 price);
+    event LandListedForFractionalOwnership(uint256 landId, uint256 price);
 
     struct LandInput {
         uint256 id;
@@ -140,6 +145,9 @@ contract LandRecords {
         land.owner.aadharNumber = newAadharNumber;
         land.owner.contact = newContact;
 
+        // Set the listed attribute to false when ownership is transferred
+        land.details.listed = false;
+
         for (uint256 i = 0; i < ownerToLandIds[oldAadharNumber].length; i++) {
             if (ownerToLandIds[oldAadharNumber][i] == landId) {
                 ownerToLandIds[oldAadharNumber][i] = ownerToLandIds[oldAadharNumber][ownerToLandIds[oldAadharNumber].length - 1];
@@ -150,6 +158,29 @@ contract LandRecords {
 
         ownerToLandIds[newAadharNumber].push(landId);
         emit OwnershipTransferred(landId, newAadharNumber, newContact);
+    }
+
+    function listLandForSale(uint256 landId, uint256 price) public {
+        Land storage land = lands[landId];
+        require(land.id != 0, "Land not found");
+
+        land.details.listed = true;
+        land.details.price = price;
+
+        emit LandListedForSale(landId, price);
+    }
+
+    function listLandForFractionalOwnership(uint256 landId, uint256 price) public {
+        Land storage land = lands[landId];
+        require(land.id != 0, "Land not found");
+
+        land.details.listableForFractionalOwnership = true;
+        land.details.price = price;
+
+        // Set available tokens for the land to the total number of fractions
+        availableTokens[landId] = land.details.numberOfFractions;
+
+        emit LandListedForFractionalOwnership(landId, price);
     }
 
     function manageFractionalOwnership(uint256 landId, address[] memory owners, uint256[] memory fractions) public {
@@ -173,6 +204,16 @@ contract LandRecords {
         require(totalFractions == 100, "Total fractions must equal 100");
 
         emit FractionalOwnershipUpdated(landId);
+    }
+
+    function updateTokenOwners(uint256 landId, string memory buyerAadharNumber, uint256 tokensPurchased) public {
+        require(availableTokens[landId] >= tokensPurchased, "Not enough available tokens");
+
+        // Decrease the number of available tokens
+        availableTokens[landId] -= tokensPurchased;
+
+        // Update the token balance for the buyer
+        tokenBalances[buyerAadharNumber] += tokensPurchased;
     }
 
     function getFractionOwners(uint256 landId) public view returns (FractionOwner[] memory) {

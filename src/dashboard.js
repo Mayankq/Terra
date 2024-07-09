@@ -13,7 +13,7 @@ const { Web3 } = require('web3');
 const contract = require('./LandRecords.json'); // Adjust the path if necessary
 
 const web3 = new Web3('http://127.0.0.1:7545'); // Replace with your Ganache provider // Use 127.0.0.1 instead of localhost
-const contractAddress = '0xc165F89CBCC171777A7334400ED7f74C6A249590'; // Replace with the deployed contract address
+const contractAddress = '0x3c0C4463367E84dA0925E8D674006108d9AF397F'; // Replace with the deployed contract address
 const landRecordsContract = new web3.eth.Contract(contract.abi, contractAddress);
 
 const Dashboard = () => {
@@ -48,6 +48,7 @@ const Dashboard = () => {
       const land = await landRecordsContract.methods.lands(landId).call();
       return {
         id: land.id.toString(),
+        price: land.details.price.toString(),
         title: land.details.title,
         description: land.details.description,
         location: land.details.location,

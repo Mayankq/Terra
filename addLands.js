@@ -1,16 +1,16 @@
 const fs = require('fs');
-const {Web3} = require('web3');
-const contract = require('./build/contracts/LandRecords.json'); // Adjust the path if necessary
+const { Web3 } = require('web3');
+const contract = require('./build/contracts/LandRecords.json'); // Adjust path if necessary
 
-const web3 = new Web3('http://127.0.0.1:7545'); // Replace with your Ganache provider // Use 127.0.0.1 instead of localhost
-const contractAddress = '0xc165F89CBCC171777A7334400ED7f74C6A249590'; // Replace with the deployed contract address
+const web3 = new Web3('http://127.0.0.1:7545'); // Replace with your Ganache provider
+const contractAddress = '0x3c0C4463367E84dA0925E8D674006108d9AF397F'; // Deployed contract address
 const landRecordsContract = new web3.eth.Contract(contract.abi, contractAddress);
-const BATCH_SIZE = 10; // Adjust this size based on your testing needs
+const BATCH_SIZE = 10; // Adjust based on needs
 
-// Read and parse the JSON file
+// Read and parse JSON file
 const landData = JSON.parse(fs.readFileSync('lands.json'));
 
-// Helper function to split the data into chunks
+// Helper function to split data into chunks
 function chunkArray(array, size) {
     const result = [];
     for (let i = 0; i < array.length; i += size) {
@@ -23,21 +23,22 @@ function chunkArray(array, size) {
 const landInputs = landData.map(record => ({
     id: record.id,
     details: {
-        title: record.title,
-        description: record.description,
-        location: record.address,
-        zoningType: record.zoning_type,
-        utilities: record.utilities,
-        images: record.images,
-        listed: record.listed,
-        listableForFractionalOwnership: record.listable_for_fractional_ownership,
-        numberOfFractions: record.number_of_fractions
+        title: record.details.title,
+        description: record.details.description,
+        location: record.details.location,
+        zoningType: record.details.zoningType,
+        utilities: record.details.utilities,
+        images: record.details.images,
+        listed: record.details.listed,
+        listableForFractionalOwnership: record.details.listableForFractionalOwnership,
+        numberOfFractions: record.details.numberOfFractions,
+        price: record.details.price
     },
     owner: {
         name: record.owner.name,
-        contact: record.owner.contact_number,
+        contact: record.owner.contact,
         email: record.owner.email,
-        aadharNumber: record.owner.aadhar_number // Ensure you have this field in your JSON data
+        aadharNumber: record.owner.aadharNumber
     },
     city: record.city,
     state: record.state
@@ -54,12 +55,12 @@ async function addLandsInBatches() {
         try {
             await landRecordsContract.methods.addLands(landChunks[i]).send({
                 from: fromAccount,
-                gas: 60000000 // Set a higher gas limit
+                gas: 60000000
             });
             console.log(`Batch ${i + 1} added successfully`);
         } catch (error) {
             console.error(`Error adding batch ${i + 1}:`, error);
-            // Optionally, add retry logic or log the failed batch details
+            // Optionally add retry logic or log failed batch details
         }
     }
 }

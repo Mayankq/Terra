@@ -9,6 +9,7 @@ import Terms from "./terms";
 import Profile from "./profile";
 import Best from "./Bestselects";
 import Landdesc from "./Landdesc";
+import SearchWithout from "./SearchWithout";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
       <Route path="/profile" element={<Profile/>}/>
       <Route path="/Bestselect" element={<Best/>}/>
       <Route path="/land/:id" element={<Landdesc />} />
+      <Route path="/searchwithout" element={<SearchWithout/>} />
     </Routes>
   );
 }

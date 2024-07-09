@@ -20,6 +20,8 @@ function Landing() {
   const sourceRef = useRef(null);
   const featuresRef = useRef(null);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [state, setState] = useState('');
+  const [city, setCity] = useState('');
 
   const scrollToTestimonials = () => {
     testimonialsRef.current.scrollIntoView({ behavior: 'smooth' });
@@ -30,7 +32,9 @@ function Landing() {
   const scrollToSource = () => {
     sourceRef.current.scrollIntoView({ behavior: 'smooth' });
   };
-  
+  const handleSearch = () => {
+    window.location.href = `http://localhost:3000/searchWithout`;
+  };
 
   return (
     <>
@@ -74,22 +78,36 @@ function Landing() {
       </Navbar>
       <div>
         <div className='bgImage'>
-          <div className='some'>
+        <div className='some'>
             <div className='inps'>
-              <Select label="Select a state" radius='full' size='lg'>
+              <Select
+                label="Select a state"
+                radius='full'
+                size='lg'
+                value={state}
+                onChange={(value) => setState(value)}
+              >
                 {indianStates.map((state) => (
                   <SelectItem key={state.value} value={state.value}>
                     {state.label}
                   </SelectItem>
                 ))}
               </Select>
-              <br></br>
-              <br></br>
-              <br></br>
-              <Input radius='full' type="default" label="City" size='lg' />
-              <br></br>
-              <br></br>
-            <Button size="lg" radius='full'>Search!!</Button>
+              <br />
+              <br />
+              <Input
+                radius='full'
+                type="default"
+                label="City"
+                size='lg'
+                value={city}
+                onChange={(e) => setCity(e.target.value)}
+              />
+              <br />
+              <br />
+              <Button size="lg" radius='full' onClick={handleSearch}>
+                Search!!
+              </Button>
             </div>
             <div>
               <h1 className='inText'>Let's Find The<br></br>Perfect Land<br></br>For You</h1>
